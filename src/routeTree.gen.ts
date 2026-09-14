@@ -10,11 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AgriculteurRouteImport } from './routes/agriculteur'
 import { Route as CommentCaMarcheRouteImport } from './routes/comment-ca-marche'
+import { Route as InvestisseurRouteImport } from './routes/investisseur'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AgriculteurRoute = AgriculteurRouteImport.update({
+  id: '/agriculteur',
+  path: '/agriculteur',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CommentCaMarcheRoute = CommentCaMarcheRouteImport.update({
@@ -22,31 +29,44 @@ const CommentCaMarcheRoute = CommentCaMarcheRouteImport.update({
   path: '/comment-ca-marche',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InvestisseurRoute = InvestisseurRouteImport.update({
+  id: '/investisseur',
+  path: '/investisseur',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/agriculteur': typeof AgriculteurRoute
   '/comment-ca-marche': typeof CommentCaMarcheRoute
+  '/investisseur': typeof InvestisseurRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/agriculteur': typeof AgriculteurRoute
   '/comment-ca-marche': typeof CommentCaMarcheRoute
+  '/investisseur': typeof InvestisseurRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/agriculteur': typeof AgriculteurRoute
   '/comment-ca-marche': typeof CommentCaMarcheRoute
+  '/investisseur': typeof InvestisseurRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/comment-ca-marche'
+  fullPaths: '/' | '/agriculteur' | '/comment-ca-marche' | '/investisseur'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/comment-ca-marche'
-  id: '__root__' | '/' | '/comment-ca-marche'
+  to: '/' | '/agriculteur' | '/comment-ca-marche' | '/investisseur'
+  id: '__root__' | '/' | '/agriculteur' | '/comment-ca-marche' | '/investisseur'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AgriculteurRoute: typeof AgriculteurRoute
   CommentCaMarcheRoute: typeof CommentCaMarcheRoute
+  InvestisseurRoute: typeof InvestisseurRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -58,6 +78,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/agriculteur': {
+      id: '/agriculteur'
+      path: '/agriculteur'
+      fullPath: '/agriculteur'
+      preLoaderRoute: typeof AgriculteurRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/comment-ca-marche': {
       id: '/comment-ca-marche'
       path: '/comment-ca-marche'
@@ -65,12 +92,21 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CommentCaMarcheRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/investisseur': {
+      id: '/investisseur'
+      path: '/investisseur'
+      fullPath: '/investisseur'
+      preLoaderRoute: typeof InvestisseurRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AgriculteurRoute: AgriculteurRoute,
   CommentCaMarcheRoute: CommentCaMarcheRoute,
+  InvestisseurRoute: InvestisseurRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
