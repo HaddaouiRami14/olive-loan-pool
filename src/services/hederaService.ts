@@ -137,27 +137,18 @@ function qualityToGrade(quality: string): "extra-vierge" | "vierge" | "lampante"
  * Appel de lecture (view) → Mirror Node, pas de signature requise.
  */
 export async function fetchPoolBalance(): Promise<number> {
-  // poolBalance() n'a pas de paramètres → calldata = selector seul
-  // keccak256("poolBalance()") = 0x97e45627
-  const calldata = "0x97e45627";
   const contractId = HEDERA_CONFIG.contractId;
+  if (!contractId) return 0;
 
-  const data = await mirrorGet<ContractCallResult>(
-    `/contracts/${contractId}/results/calls?calldata=${calldata}`,
-  ).catch(() => null);
-
-  // Si le Mirror Node ne supporte pas cet endpoint, on lit le solde du compte contrat
-  if (!data) {
-    const account = await mirrorGet<{ balance: { balance: number } }>(
+  try {
+    const account = await mirrorGet<{ balance?: { balance: number } }>(
       `/contracts/${contractId}`,
     );
     return (account.balance?.balance ?? 0) / TINYBARS_PER_HBAR;
+  } catch (err) {
+    console.warn("Impossible de récupérer le solde du contrat via Mirror Node:", err);
+    return 0;
   }
-
-  // Décoder la réponse hex (uint256 BE, 32 bytes)
-  const hex = data.result.replace("0x", "");
-  const tinybars = parseInt(hex, 16);
-  return isNaN(tinybars) ? 0 : tinybars / TINYBARS_PER_HBAR;
 }
 
 /**

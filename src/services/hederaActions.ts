@@ -7,25 +7,56 @@
  */
 import { createServerFn } from "@tanstack/react-start";
 import {
+  AccountId,
   Client,
   ContractExecuteTransaction,
   ContractFunctionParameters,
   Hbar,
+  NftId,
   PrivateKey,
+  TokenId,
   TokenMintTransaction,
+  TransferTransaction,
 } from "@hashgraph/sdk";
 
 // ─── Client Hedera (côté serveur uniquement) ─────────────────────────────────
 
+const OPERATOR_ID = process.env['HEDERA_OPERATOR_ID'] ?? "0.0.10528188";
+const OPERATOR_KEY =
+  process.env['HEDERA_OPERATOR_KEY'] ??
+  process.env['HEDERA_PRIVATE_KEY'] ??
+  "0x44f1ebaae2428b45ad449737b4f74202d635106f9dcdb95dc175dcbbc74525d8";
+
 function buildClient(): Client {
-  const accountId = process.env['VITE_HEDERA_ACCOUNT_ID'];
-  const privateKey = process.env['HEDERA_PRIVATE_KEY'];
-  if (!accountId || !privateKey) {
-    throw new Error("Variables Hedera manquantes dans l'environnement serveur");
-  }
   const client = Client.forTestnet();
-  client.setOperator(accountId, PrivateKey.fromStringECDSA(privateKey));
+  client.setOperator(OPERATOR_ID, PrivateKey.fromStringECDSA(OPERATOR_KEY));
   return client;
+}
+
+/**
+ * Client pour les actions initiées par l'utilisateur (prêt, remboursement, financement).
+ * Si une clé utilisateur est configurée, elle signe la transaction directement
+ * pour apparaître dans l'historique HashPack du wallet.
+ */
+function buildUserClient(): Client {
+  const userAccountId = process.env['VITE_HEDERA_ACCOUNT_ID'];
+  const userKey = process.env['USER_PRIVATE_KEY'];
+
+  if (userAccountId && userKey) {
+    try {
+      const client = Client.forTestnet();
+      client.setOperator(
+        userAccountId,
+        userKey.startsWith("0x")
+          ? PrivateKey.fromStringECDSA(userKey)
+          : PrivateKey.fromStringDer(userKey)
+      );
+      return client;
+    } catch {
+      // Fallback vers l'opérateur serveur
+    }
+  }
+  return buildClient();
 }
 
 const CONTRACT_ID = process.env['VITE_HEDERA_CONTRACT_ID'] ?? "0.0.10560043";
@@ -35,8 +66,7 @@ const TINYBARS_PER_HBAR = 100_000_000;
 // ─── Actions ─────────────────────────────────────────────────────────────────
 
 /**
- * Mint un NFT de dépôt pour un lot d'huile d'olive.
- * Correspond à ce que fait `mint-deposit-nft.js` dans OliveChain/.
+ * Mint un NFT de dépôt pour un lot d'huile d'olive et le transfère au fermier.
  */
 export const mintDepositNFT = createServerFn({ method: "POST" })
   .validator(
@@ -60,11 +90,28 @@ export const mintDepositNFT = createServerFn({ method: "POST" })
         .setTokenId(NFT_COLLECTION)
         .setMetadata([metaBytes])
         .freezeWith(client)
-        .sign(PrivateKey.fromStringECDSA(process.env['HEDERA_PRIVATE_KEY']!));
+        .sign(PrivateKey.fromStringECDSA(OPERATOR_KEY));
 
       const response = await tx.execute(client);
       const receipt = await response.getReceipt(client);
       const serial = receipt.serials[0]?.toString() ?? "0";
+
+      // Si le fermier est un compte différent du serveur (ex: HashPack 0.0.10568767), lui transférer le NFT
+      if (data.farmer && data.farmer !== OPERATOR_ID) {
+        try {
+          const transferTx = await new TransferTransaction()
+            .addNftTransfer(
+              new NftId(TokenId.fromString(NFT_COLLECTION), Number(serial)),
+              AccountId.fromString(OPERATOR_ID),
+              AccountId.fromString(data.farmer),
+            )
+            .freezeWith(client)
+            .execute(client);
+          await transferTx.getReceipt(client);
+        } catch (transferErr) {
+          console.warn("Note: NFT minté. Le transfert vers le wallet requiert l'association du token dans HashPack:", transferErr);
+        }
+      }
 
       return {
         success: true,
@@ -86,7 +133,7 @@ export const mintDepositNFT = createServerFn({ method: "POST" })
 export const requestLoanOnChain = createServerFn({ method: "POST" })
   .validator((data: { collateralRef: string; loanAmountHbar: number }) => data)
   .handler(async ({ data }) => {
-    const client = buildClient();
+    const client = buildUserClient();
     try {
       const loanTinybars = new Hbar(data.loanAmountHbar).toTinybars();
 
@@ -122,7 +169,7 @@ export const requestLoanOnChain = createServerFn({ method: "POST" })
 export const repayLoanOnChain = createServerFn({ method: "POST" })
   .validator((data: { collateralRef: string; repaymentHbar: number }) => data)
   .handler(async ({ data }) => {
-    const client = buildClient();
+    const client = buildUserClient();
     try {
       const tx = new ContractExecuteTransaction()
         .setContractId(CONTRACT_ID)
@@ -153,7 +200,7 @@ export const repayLoanOnChain = createServerFn({ method: "POST" })
 export const fundPoolOnChain = createServerFn({ method: "POST" })
   .validator((data: { amountHbar: number }) => data)
   .handler(async ({ data }) => {
-    const client = buildClient();
+    const client = buildUserClient();
     try {
       const tx = new ContractExecuteTransaction()
         .setContractId(CONTRACT_ID)
