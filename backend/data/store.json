@@ -163,9 +163,17 @@
     "0.0.10568643": {
       "lots": [],
       "loan": null,
-      "supplied": 850,
+      "supplied": 950,
       "earned": 0,
       "txs": [
+        {
+          "id": "tx-1789571222901-771654",
+          "at": "2026-09-16T15:07:02.901Z",
+          "type": "supply",
+          "label": "Dépôt dans le pool de liquidité",
+          "amount": "+100 USDC",
+          "hash": "0.0.10523409@1789571218.478522206"
+        },
         {
           "id": "tx-1789563527548-22930",
           "at": "2026-09-16T12:58:47.548Z",
@@ -196,8 +204,8 @@
         "loanPrincipal": 0,
         "currentDebt": 0,
         "maxBorrowable": 0,
-        "supplied": 850.001683,
-        "earned": 0.004798
+        "supplied": 950.018476,
+        "earned": 0.000649
       }
     }
   },
@@ -234,7 +242,7 @@
     },
     {
       "label": "Sept.",
-      "tvl": 1251600,
+      "tvl": 1251700,
       "at": "2026-09-16T10:57:37.660Z"
     }
   ]
