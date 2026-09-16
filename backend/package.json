@@ -1,0 +1,28 @@
+{
+  "name": "olivechain-backend",
+  "version": "1.0.0",
+  "description": "Backend Node.js/Express — OliveChain (Hedera Hashgraph : HTS + Smart Contract) pour le hackathon Hedera Cross Campus Challenge 2026",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "compile": "node scripts/compile.js",
+    "setup:tokens": "node scripts/setupTokens.js",
+    "deploy:contract": "node scripts/deployContract.js"
+  },
+  "dependencies": {
+    "@hashgraph/sdk": "^2.53.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "morgan": "^1.10.0",
+    "olivechain-fullstack": "file:.."
+  },
+  "devDependencies": {
+    "solc": "^0.8.26"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

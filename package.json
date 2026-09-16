@@ -1,0 +1,18 @@
+{
+  "name": "olivechain-fullstack",
+  "private": true,
+  "version": "1.0.0",
+  "description": "OliveChain — frontend (React/TanStack Start) + backend (Node.js/Express + Hedera Hashgraph), lancés ensemble",
+  "scripts": {
+    "install:all": "npm install --prefix frontend && npm install --prefix backend",
+    "dev": "concurrently -n frontend,backend -c cyan,magenta \"npm run dev --prefix frontend\" \"npm run dev --prefix backend\"",
+    "dev:frontend": "npm run dev --prefix frontend",
+    "dev:backend": "npm run dev --prefix backend",
+    "backend:compile": "npm run compile --prefix backend",
+    "backend:setup:tokens": "npm run setup:tokens --prefix backend",
+    "backend:deploy:contract": "npm run deploy:contract --prefix backend"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}

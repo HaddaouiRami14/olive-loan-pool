@@ -1,0 +1,241 @@
+{
+  "accounts": {
+    "0.0.10523409": {
+      "lots": [
+        {
+          "id": "lot-1789558694188",
+          "tokenId": "0.0.10567996",
+          "liters": 700,
+          "grade": "extra-vierge",
+          "valueUsdc": 5950,
+          "createdAt": "2026-09-16T11:38:14.188Z"
+        },
+        {
+          "id": "lot-1789558435912",
+          "tokenId": "0.0.10567996",
+          "liters": 200,
+          "grade": "extra-vierge",
+          "valueUsdc": 1700,
+          "createdAt": "2026-09-16T11:33:55.912Z"
+        },
+        {
+          "id": "lot-1789558381646",
+          "tokenId": "0.0.10567996",
+          "liters": 800,
+          "grade": "extra-vierge",
+          "valueUsdc": 6800,
+          "createdAt": "2026-09-16T11:33:01.646Z"
+        },
+        {
+          "id": "lot-1789556653731",
+          "tokenId": "0.0.10567996",
+          "liters": 700,
+          "grade": "extra-vierge",
+          "valueUsdc": 5950,
+          "createdAt": "2026-09-16T11:04:13.731Z"
+        },
+        {
+          "id": "lot-1789556539338",
+          "tokenId": "0.0.10567996",
+          "liters": 100,
+          "grade": "extra-vierge",
+          "valueUsdc": 850,
+          "createdAt": "2026-09-16T11:02:19.338Z"
+        }
+      ],
+      "loan": {
+        "id": "loan-1789556552612",
+        "contractId": "0.0.10568035",
+        "principalUsdc": 8100,
+        "interestRate": 0.09,
+        "startedAt": "2026-09-16T11:02:32.612Z",
+        "dueAt": "2027-03-15T11:02:32.612Z"
+      },
+      "supplied": 2250,
+      "earned": 0,
+      "txs": [
+        {
+          "id": "tx-1789558725022-684081",
+          "at": "2026-09-16T11:38:45.022Z",
+          "type": "supply",
+          "label": "Dépôt dans le pool de liquidité",
+          "amount": "+1 000 USDC",
+          "hash": "0.0.10523409@1789558716.529162367"
+        },
+        {
+          "id": "tx-1789558711456-651298",
+          "at": "2026-09-16T11:38:31.456Z",
+          "type": "borrow",
+          "label": "Prêt accordé en stablecoin",
+          "amount": "+2 750 USDC",
+          "hash": "0.0.10523409@1789558706.957934093"
+        },
+        {
+          "id": "tx-1789558694188-270586",
+          "at": "2026-09-16T11:38:14.188Z",
+          "type": "deposit",
+          "label": "Dépôt de collatéral · 700 L extra-vierge",
+          "amount": "+5 950 USDC de valeur",
+          "hash": "0.0.10523409@1789558687.971391302"
+        },
+        {
+          "id": "tx-1789558467984-734139",
+          "at": "2026-09-16T11:34:27.984Z",
+          "type": "supply",
+          "label": "Dépôt dans le pool de liquidité",
+          "amount": "+250 USDC",
+          "hash": "0.0.10523409@1789558458.909917371"
+        },
+        {
+          "id": "tx-1789558454327-496110",
+          "at": "2026-09-16T11:34:14.327Z",
+          "type": "borrow",
+          "label": "Prêt accordé en stablecoin",
+          "amount": "+1 850 USDC",
+          "hash": "0.0.10523409@1789558449.771287916"
+        },
+        {
+          "id": "tx-1789558435912-719726",
+          "at": "2026-09-16T11:33:55.912Z",
+          "type": "deposit",
+          "label": "Dépôt de collatéral · 200 L extra-vierge",
+          "amount": "+1 700 USDC de valeur",
+          "hash": "0.0.10523409@1789558427.363498815"
+        },
+        {
+          "id": "tx-1789558381659-132183",
+          "at": "2026-09-16T11:33:01.659Z",
+          "type": "deposit",
+          "label": "Dépôt de collatéral · 800 L extra-vierge",
+          "amount": "+6 800 USDC de valeur",
+          "hash": "0.0.10523409@1789558371.067607945"
+        },
+        {
+          "id": "tx-1789558042135-784558",
+          "at": "2026-09-16T11:27:22.135Z",
+          "type": "supply",
+          "label": "Dépôt dans le pool de liquidité",
+          "amount": "+1 000 USDC",
+          "hash": "0.0.10523409@1789558033.517331284"
+        },
+        {
+          "id": "tx-1789556670175-883170",
+          "at": "2026-09-16T11:04:30.175Z",
+          "type": "borrow",
+          "label": "Prêt accordé en stablecoin",
+          "amount": "+3 300 USDC",
+          "hash": "0.0.10523409@1789556662.441720897"
+        },
+        {
+          "id": "tx-1789556653731-597668",
+          "at": "2026-09-16T11:04:13.731Z",
+          "type": "deposit",
+          "label": "Dépôt de collatéral · 700 L extra-vierge",
+          "amount": "+5 950 USDC de valeur",
+          "hash": "0.0.10523409@1789556643.746905894"
+        },
+        {
+          "id": "tx-1789556552612-854735",
+          "at": "2026-09-16T11:02:32.612Z",
+          "type": "borrow",
+          "label": "Prêt accordé en stablecoin",
+          "amount": "+200 USDC",
+          "hash": "0.0.10523409@1789556545.362135400"
+        },
+        {
+          "id": "tx-1789556539353-567982",
+          "at": "2026-09-16T11:02:19.353Z",
+          "type": "deposit",
+          "label": "Dépôt de collatéral · 100 L extra-vierge",
+          "amount": "+850 USDC de valeur",
+          "hash": "0.0.10523409@1789556531.133336376"
+        }
+      ],
+      "_lastOnChain": {
+        "collateralValueUsdc": 21250,
+        "loanPrincipal": 8100,
+        "currentDebt": 8100.209273,
+        "maxBorrowable": 6775,
+        "supplied": 2350.017116,
+        "earned": 0.025653
+      }
+    },
+    "0.0.10568643": {
+      "lots": [],
+      "loan": null,
+      "supplied": 850,
+      "earned": 0,
+      "txs": [
+        {
+          "id": "tx-1789563527548-22930",
+          "at": "2026-09-16T12:58:47.548Z",
+          "type": "supply",
+          "label": "Dépôt dans le pool de liquidité",
+          "amount": "+500 USDC",
+          "hash": "0.0.10523409@1789563521.394337825"
+        },
+        {
+          "id": "tx-1789563376140-463794",
+          "at": "2026-09-16T12:56:16.140Z",
+          "type": "supply",
+          "label": "Dépôt dans le pool de liquidité",
+          "amount": "+100 USDC",
+          "hash": "0.0.10523409@1789563370.679582583"
+        },
+        {
+          "id": "tx-1789560963687-582338",
+          "at": "2026-09-16T12:16:03.688Z",
+          "type": "supply",
+          "label": "Dépôt dans le pool de liquidité",
+          "amount": "+250 USDC",
+          "hash": "0.0.10523409@1789560954.779409703"
+        }
+      ],
+      "_lastOnChain": {
+        "collateralValueUsdc": 0,
+        "loanPrincipal": 0,
+        "currentDebt": 0,
+        "maxBorrowable": 0,
+        "supplied": 850.001683,
+        "earned": 0.004798
+      }
+    }
+  },
+  "poolHistory": [
+    {
+      "label": "Mars",
+      "tvl": 611000,
+      "at": "2026-09-16T10:57:37.660Z"
+    },
+    {
+      "label": "Avril",
+      "tvl": 742000,
+      "at": "2026-09-16T10:57:37.660Z"
+    },
+    {
+      "label": "Mai",
+      "tvl": 819000,
+      "at": "2026-09-16T10:57:37.660Z"
+    },
+    {
+      "label": "Juin",
+      "tvl": 950000,
+      "at": "2026-09-16T10:57:37.660Z"
+    },
+    {
+      "label": "Juillet",
+      "tvl": 1027000,
+      "at": "2026-09-16T10:57:37.660Z"
+    },
+    {
+      "label": "Août",
+      "tvl": 1158000,
+      "at": "2026-09-16T10:57:37.660Z"
+    },
+    {
+      "label": "Sept.",
+      "tvl": 1251600,
+      "at": "2026-09-16T10:57:37.660Z"
+    }
+  ]
+}
